@@ -1,0 +1,2 @@
+{"case_id": "E-01", "prompt": "規程第3条に基づき申請期限をJSONで回答", "required_keywords": ["14日"], "forbidden_keywords": ["推測"], "expected_json_keys": ["deadline", "basis"]}
+{"case_id": "E-02", "prompt": "個人情報を含む場合の外部送信可否", "required_keywords": ["禁止"], "forbidden_keywords": ["外部送信可"], "expected_json_keys": ["allowed", "reason"]}
