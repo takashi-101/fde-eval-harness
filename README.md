@@ -1,14 +1,12 @@
 # fde-eval-harness：LLMを使う仕組みを、決めておいたケースで繰り返し確かめる評価ハーネス
 
-[![tests](https://github.com/takashi-101/fde-eval-harness/actions/workflows/tests.yml/badge.svg)](https://github.com/takashi-101/fde-eval-harness/actions/workflows/tests.yml)
-
 別リポジトリの [fde-hybrid-router](https://github.com/takashi-101/fde-hybrid-router)（問い合わせを機密区分でクラウド側とローカルLLMに振り分けるルーター）を評価対象にして、ゴールデンケース（期待する結果を先に決めておいた入力）で振り分け・マスキング（伏せ字に置き換えること）・遮断・人の確認を検査し、結果を [RESULTS.md](RESULTS.md) に記録します。文字列の出力を必須語・禁止語・JSONのキーで検査する汎用の関数も入っています。標準ライブラリだけで動きます。
 
 ## 30秒で読む要点
 - **実物を評価しています**：fde-hybrid-router をパスで読み込み、そのルーターとローカルLLM（Ollama、手元のPCでLLMを動かすソフト。モデルは `qwen2.5:7b`）を実際に動かして、架空の問い合わせ13件を評価しました。結果は合格11件、既知の不合格2件、不合格0件です（2026-11-14、対象コミット `e93f42f`、[RESULTS.md](RESULTS.md)）。
 - **確かめること**：機密区分と振り分け先、伏せるべき文字列がクラウド側とローカルLLMに渡した本文に含まれないこと、プロンプトインジェクション（LLMへの指示の上書きを狙う入力）がどのLLMにも渡らず人の確認に回ること、確信度（回答案の確からしさを0〜1で表した値）が閾値未満なら人の確認待ちになること、答えたバックエンドがDBに記録されること。
 - **既知の制約も数えます**：書式のない氏名と、言い換えた指示の上書きは、評価対象が検出できません。この2件は「既知の不合格」として毎回記録し、直れば「既知の問題なのに合格」として表に出ます。
-- **CI（GitHubでの自動テスト）は評価対象なしで動きます**：ユニットテストはスタブ（評価対象の代わりに決まった結果を返す部品）を使い、fde-hybrid-router もOllamaも要りません。RESULTS.md は手元で実行した記録です。
+- **ユニットテストは評価対象なしで動きます**：ユニットテストはスタブ（評価対象の代わりに決まった結果を返す部品）を使い、fde-hybrid-router もOllamaも要りません。RESULTS.md は手元で実行した記録です。
 
 ## 評価の実行
 前提：fde-hybrid-router を、このリポジトリと同じ親フォルダに置きます（`../fde-hybrid-router`）。Ollamaが `http://127.0.0.1:11434` で動いていて、`qwen2.5:7b` が入っていること。
@@ -97,11 +95,13 @@ tests/                     ユニットテスト
 
 ## 根拠（学習）
 
-| 機能 | 裏付けになる学習（発行元・名称・発行日） | 照会先（Credly） |
-|---|---|---|
-| 架空の13件による振り分けの評価と、結果の記録（RESULTS.md） | Coursera（認定：IBM）「IBM Generative AI Engineering Professional Certificate」2026年11月9日 | https://www.credly.com/badges/7364adab-8350-4eef-b94c-94e8dc659570 |
-| 推定トークン数とコストの計算 | Coursera（認定：IBM）「Generative AI and LLMs: Architecture and Data Preparation」2026年11月1日 | https://www.credly.com/badges/d18319e6-bcc1-480e-ac79-09744b9d41aa |
-| 評価を繰り返し実行できる形にしたテスト | Coursera（認定：IBM）「Software Engineering Essentials」2026年11月11日 | https://www.credly.com/badges/618186c3-f4a3-4a32-bb49-eaea27067721 |
+| 求められる力 | 機能 | 裏付けになる学習（発行元・名称・発行日） | 照会先（Credly） |
+|---|---|---|---|
+| 生成AI・LLMの実装（RAG・エージェント・MCP） | 架空の13件による振り分けの評価と、結果の記録（RESULTS.md） | Coursera（認定：IBM）「IBM Generative AI Engineering Professional Certificate」2026年11月9日 | https://www.credly.com/badges/7364adab-8350-4eef-b94c-94e8dc659570 |
+| 生成AI・LLMの実装（RAG・エージェント・MCP） | 推定トークン数とコストの計算 | Coursera（認定：IBM）「Generative AI and LLMs: Architecture and Data Preparation」2026年11月1日 | https://www.credly.com/badges/d18319e6-bcc1-480e-ac79-09744b9d41aa |
+| ソフトウェア開発（テスト・CI・コンテナ） | 評価を繰り返し実行できる形にしたテスト | Coursera（認定：IBM）「Software Engineering Essentials」2026年11月11日 | https://www.credly.com/badges/618186c3-f4a3-4a32-bb49-eaea27067721 |
+
+「求められる力」の分け方は、[プロフィール](https://github.com/takashi-101) の「FDE・AXで求められる力と、その根拠」と同じです。
 
 ## ライセンス
 MIT
