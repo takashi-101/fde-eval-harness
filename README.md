@@ -95,5 +95,13 @@ tests/                     ユニットテスト
 ```
 ケースの氏名・電話番号・メールアドレス・番号はすべて架空です。
 
+## 根拠（学習）
+
+| 機能 | 裏付けになる学習（発行元・名称・発行日） | 照会先（Credly） |
+|---|---|---|
+| 架空の13件による振り分けの評価と、結果の記録（RESULTS.md） | Coursera（認定：IBM）「IBM Generative AI Engineering Professional Certificate」2026年11月9日 | https://www.credly.com/badges/7364adab-8350-4eef-b94c-94e8dc659570 |
+| 推定トークン数とコストの計算 | Coursera（認定：IBM）「Generative AI and LLMs: Architecture and Data Preparation」2026年11月1日 | https://www.credly.com/badges/d18319e6-bcc1-480e-ac79-09744b9d41aa |
+| 評価を繰り返し実行できる形にしたテスト | Coursera（認定：IBM）「Software Engineering Essentials」2026年11月11日 | https://www.credly.com/badges/618186c3-f4a3-4a32-bb49-eaea27067721 |
+
 ## ライセンス
 MIT
